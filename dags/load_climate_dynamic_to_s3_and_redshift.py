@@ -14,8 +14,8 @@ dag = DAG(
     dag_id="climate_dynamic_data_to_redshift",
     default_args=default_args,
     description="날씨 동적 데이터 처리 후 Redshift 적재",
-    schedule_interval='0 13 * * *',  # 매일 13:30에 실행
-    start_date=datetime(2025, 1, 3),
+    schedule_interval='0 14 * * *',  # 매일 13:30에 실행
+    start_date=datetime(2025, 1, 1),
     max_active_runs=1,
     concurrency=1,
     catchup=False,
@@ -29,7 +29,8 @@ process_dynamic_data = GlueJobOperator(
         '--JOB_NAME': "team2-glue-dynamic-climate",
         '--S3_INPUT_PATH': 's3://team2-s3/raw_data/climate/2025/',
         '--S3_OUTPUT_PATH': 's3://team2-s3/transformed_data/climate/dynamic',
-        '--DATA_DATE': "{{ macros.ds_add(ds, -2) }}"  # 이틀 전날짜 전달 (YYYYMMDD 형식)
+        # 날짜 전달 (YYYY-MM-DD 형식)
+        '--DATA_DATE': "{{ execution_date.strftime('%Y-%m-%d') }}"
     },
     aws_conn_id='aws_conn',
     region_name='ap-northeast-2',

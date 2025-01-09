@@ -51,9 +51,7 @@ def download_and_upload_to_s3(dynamic=False, **kwargs):
 
     if dynamic:  # 동적 데이터 적재
         execution_date = kwargs['execution_date']  # Airflow에서 제공
-        execution_date_kst = execution_date.astimezone(kst)  # KST 시간대로 변환
-        data_date = (execution_date_kst - timedelta(days=1)
-                     ).strftime('%Y%m%d')  # 어제 날짜 계산
+        data_date = (execution_date).strftime('%Y%m%d')
         print(f"[동적 데이터] 실행일자: {execution_date_kst}, 처리 데이터 날짜: {data_date}")
         date_list = [data_date]
     else:  # 정적 데이터 적재
@@ -142,7 +140,7 @@ with DAG(
 default_args_dynamic = {
     'owner': 'airflow',
     'depends_on_past': True,
-    'start_date': datetime(2025, 1, 2, tzinfo=pytz.utc),  # UTC 기준
+    'start_date': datetime(2025, 1, 1),
     'retries': 1,
     'retry_delay': timedelta(minutes=10),
 }
@@ -150,7 +148,7 @@ default_args_dynamic = {
 with DAG(
     dag_id='climate_dynamic_data',
     default_args=default_args_dynamic,
-    schedule_interval='30 4 * * *',  # 매일 UTC 04:30 (KST 13:30)
+    schedule_interval='30 13 * * *',  # 매일 KST 13:30)
     catchup=False,
     tags=['climate', 's3', 'dynamic'],
 ) as dynamic_dag:
