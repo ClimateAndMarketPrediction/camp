@@ -1,5 +1,5 @@
 # 🌾CAMP (Climate And Market Prediction)
-## 프로젝트 개요
+## 📍 프로젝트 개요
 ### **1.1. 주제 선정 배경**
 
 - 최근 배추 가격 상승의 주요 원인이 기후 변화로 인한 작황 부진이라는 기사를 읽게 됨
@@ -16,7 +16,7 @@
 <aside>
 
 
-## 📍 프로젝트 시각화 결과
+## 📊 프로젝트 시각화 결과
 ### 품목(중분류) 거래 규모
 <table>
   <tr>
@@ -36,8 +36,6 @@
     </td>
   </tr>
 </table>
-
-
 
 ### 품목 별 가격 정보
 <table>
@@ -66,7 +64,6 @@
     </td>
   </tr>
 </table>
-
 
 ### 기후 & 도매 상관관계
 
@@ -105,7 +102,8 @@
 
 </br>
 
-## DAGS & GLUE JOBS
+
+## 📬 DAGS & GLUE JOBS
 <table>
   <tr>
       <td align="center">
@@ -148,7 +146,7 @@
 
 </br>
 
-## ML
+## 🔍 ML
 
 <span>- **사용 모델**: LightGBM</span></br>
 <span>- **사용 데이터셋**: 날씨 데이터와 도매 가격 데이터를 Join하여 생성한 약 1.5GB의 training set</span></br>
@@ -202,7 +200,7 @@
 
 </br>
 
-## ⚙System Architecture
+## ⚙️ System Architecture
 
 ### 시스템 아키텍처
 
@@ -212,7 +210,7 @@
   </td>
 </table>
 
-###  🛠 기술 스택 및 활용
+### 기술 스택 및 활용
 <table align="center">
     <tr>
         <th align="center">아키텍처</th>
