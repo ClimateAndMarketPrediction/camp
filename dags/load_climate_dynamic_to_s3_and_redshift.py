@@ -75,5 +75,22 @@ remove_duplicates = RedshiftDataOperator(
     dag=dag,
 )
 
+# 임시파일 정리
+
+
+def clear_tmp_files():
+    import shutil
+    tmp_dir = "/tmp/airflow"
+    shutil.rmtree(tmp_dir, ignore_errors=True)
+    print("임시 파일 정리 완료")
+
+
+cleanup_task = PythonOperator(
+    task_id='clear_tmp_files',
+    python_callable=clear_tmp_files,
+    dag=dag,
+)
+
+
 # 태스크 의존성 설정
-process_dynamic_data >> load_dynamic_data_to_redshift >> remove_duplicates
+process_dynamic_data >> load_dynamic_data_to_redshift >> remove_duplicates >> cleanup_task
